@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package MyDatabase;
+
+
+option go_package = "/";
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/any.proto";
+
+
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+       // ! \\         No underscore in label field name !!!                        // ! \\
+       // ! \\         field name PascalCase                                        // ! \\
+       // ! \\         field number start = 1                                       // ! \\
+       // ! \\         enum name PascalCase or UPPERCASE or Capitalize_python       // ! \\
+       // ! \\         enum number start = 0                                        // ! \\
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+
+
+// generate config protobuf
+// cd ../api/proto/backendDbMsg
+// protoc --python_out=. backendDb.proto && protoc --go_out=. backendDb.proto && protoc --js_out=. backendDb.proto
+
+// command to generate protobuf package (protobuf install is required, protoc-gen-js and protoc-gen-go also)
+// python : protoc --python_out=. Qmsg.proto 
+// go : protoc --go_out=. Qmsg.proto 
+// c++ : protoc --cpp_out=. Qmsg.proto
+// java : protoc --java_out=. Qmsg.proto 
+// javascript : protoc --js_out=. Qmsg.proto 
+
+
+//####################################################################
+//######################## Log messages ##############################
+
+message LogDbMsg {
+
+    enum LevelNumber {
+        unloggable = 0;
+        notset = 1;
+        debug = 2;
+        stream = 3;
+        info = 4;
+        logon = 5;
+        logout = 6;
+        trade = 7;
+        schedule = 8;
+        report = 9;
+        warning = 10;
+        error = 11;
+        critical = 12;
+    }
+
+    // recorded by log_server : 
+    string Timestamp = 1;      // When the event occurred
+    string Hostname = 2;      // Host/machine name
+    string LoggerName = 3;     // Name of the logger (usually __name__)
+    string Module = 4;         // Module (name portion of filename)
+    LevelNumber Level = 5;     // Logging level/severity
+    string Filename = 6;       // Filename portion of pathname
+    string FunctionName = 7;   // Function name
+    string LineNumber = 8;     // Source line number
+    string Message = 9;        // The log message
+
+    // others
+    // path of the file
+    string PathName = 10;       // Full pathname of the source file
+
+    // Process information
+    string ProcessId = 11;     // Process ID
+    string ProcessName = 12;   // Process name
+    
+    // Thread information
+    string ThreadId = 13;      // Thread ID
+    string ThreadName = 14;    // Thread name
+    
+    // Additional requested fields
+    string ServiceName = 15;   // Name of the service generating the log
+
+    // Optional stack trace for errors
+    string StackTrace = 16;    // Stack trace if available 
+    
+    // Extra fields for extensibility, if needed 
+    // string extended = x;
+    //map<string, string> extra = X;  // For any additional key-value pairs
+}
+
+//######################## Log messages ##############################
+//####################################################################

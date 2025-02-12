@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package Qmsg;
+
+
+option go_package = "/";
+//import "google/protobuf/any.proto";
+//import "google/protobuf/timestamp.proto";
+
+
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+       // ! \\         No underscore in label field name !!!                        // ! \\
+       // ! \\         field name PascalCase                                        // ! \\
+       // ! \\         field number start = 1                                       // ! \\
+       // ! \\         enum name PascalCase or UPPERCASE or Capitalize_python       // ! \\
+       // ! \\         enum number start = 0                                        // ! \\
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+
+
+// generate Qmsg protobuf
+// protoc --python_out=. Qmsg.proto && protoc --go_out=. Qmsg.proto && protoc --cpp_out=. Qmsg.proto && protoc --java_out=. Qmsg.proto && protoc --js_out=. Qmsg.proto 
+
+// command to generate protobuf package (protobuf install is required, protoc-gen-js and protoc-gen-go also)
+// python : protoc --python_out=. Qmsg.proto 
+// go : protoc --go_out=. Qmsg.proto 
+// c++ : protoc --cpp_out=. Qmsg.proto
+// java : protoc --java_out=. Qmsg.proto 
+// javascript : protoc --js_out=. Qmsg.proto 
+
+
+//####################################################################
+//###################### HelloBye messages ###########################
+
+message HelloMsg {
+    string name = 1;
+    string localServer = 2;
+    string localPort = 3;
+}
+
+//###################### HelloBye messages ###########################
+//####################################################################
+//####################### Stream messages ############################
+
+message StreamMsg {
+    enum StreamAction {
+        QUOTE = 0; 
+        UNQUOTE = 1; 
+        TICK = 2;
+        UNTICK = 3;
+        ORDERBOOK = 4;
+        UNORDERBOOK = 5;     
+    }
+    string BROKER = 1;
+    StreamAction STREAM_ACTION = 2;
+    string TICKER = 3;
+}
+
+//####################### Stream messages ############################ 
+//####################################################################
+//####################### Trade messages #############################
+
+message TradeMsg {
+    enum TradeAction {
+        BUY = 0;
+        SELL = 1;
+        CALL = 2;
+        PUT = 3;   
+    }
+    int32 ACCOUNT_ID = 1;
+    TradeAction TRADEACTION = 2;
+    string TICKER = 3;
+    string QUANTITY = 4;
+    map<string, google.protobuf.Any> TradeParams = 5;
+}
+
+//####################### Trade messages #############################
+//####################################################################
+//###################### AmatrixQ messages ###########################
+
+message QMsg {
+    string ID = 1;
+    string FROME = 2;
+    string TOO = 3;
+    bool ACKW = 4;
+    bool PRIORITY = 5;
+    bytes MESSAGE = 6;  
+    //oneof msg {
+    //    ConfigMsg CONFIGMSG = 8;
+    //    StreamMsg STREAMMSG = 9;
+    //    TradeMsg TRADEMSG = 10;
+    //    // should be send has binary...
+    //    LogMsg LOGMSG = 6;
+    //    NotifMsg NOTIFMSG = 7;
+    //    //google.protobuf.Any any_message = 11; // For dynamically typed messages
+    //}
+}
+
+//###################### AmatrixQ messages ###########################
+//####################################################################
+
+
+
+
+

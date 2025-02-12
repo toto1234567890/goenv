@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package Helpers;
+
+
+option go_package = "/";
+//import "google/protobuf/any.proto";
+//import "google/protobuf/timestamp.proto";
+
+
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+       // ! \\         No underscore in label field name !!!                        // ! \\
+       // ! \\         field name PascalCase                                        // ! \\
+       // ! \\         field number start = 1                                       // ! \\
+       // ! \\         enum name PascalCase or UPPERCASE or Capitalize_python       // ! \\
+       // ! \\         enum number start = 0                                        // ! \\
+// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\// ! \\
+
+
+// generate config protobuf
+// cd ../api/Helpers/helpersMsg
+// protoc --python_out=. safeSocket.proto && protoc --go_out=. safeSocket.proto 
+
+// command to generate protobuf package (protobuf install is required, protoc-gen-js and protoc-gen-go also)
+// python : protoc --python_out=. Qmsg.proto 
+// go : protoc --go_out=. Qmsg.proto 
+// c++ : protoc --cpp_out=. Qmsg.proto
+// java : protoc --java_out=. Qmsg.proto 
+// javascript : protoc --js_out=. Qmsg.proto 
+
+
+//####################################################################
+//#################### Socket Hello messages #########################
+
+message HelloMsg {
+    string name = 1;
+    string selfHost = 2;
+    string selfPort = 3;
+    string selfSockName = 4;
+    string selfPublicIp =5;
+}
+
+//#################### Socket Hello messages #########################
+//####################################################################
